@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Theme Studio — Codex</title>
+  <link rel="stylesheet" href="ui.css">
+  <script src="theme-convert.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="toolbar">
+    <a class="brand" href="index.html" aria-label="Theme Studio home">THEME STUDIO</a>
+    <nav class="product-switch" aria-label="Theme editor">
+      <span class="mode-link active">Codex</span>
+      <a class="mode-link" href="claude.html">Claude</a>
+    </nav>
+    <label class="theme-source">STARTING THEME <select id="theme-catalog" aria-label="Starting theme"></select></label>
+    <label class="theme-title">THEME <input id="theme-name" autocomplete="off" aria-label="Theme name"></label>
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-preview="preview" role="tab" aria-selected="true">Preview</button>
+      <button class="tab" data-preview="map" role="tab" aria-selected="false">All colours</button>
+    </div>
+    <div class="toolbar-actions">
+      <button id="new-theme" title="Create a theme matching this device">New</button>
+      <button id="open-file" title="Open a .tmTheme file">Open</button>
+      <button id="randomize-selected" disabled title="Randomize only the colour you clicked">Randomize selected</button>
+      <button id="randomize" title="Replace every editable colour">Randomize all</button>
+      <select id="terminal-palette" aria-label="Terminal colours used to preview ANSI themes" title="Terminal colours used by ANSI and Base16 themes"><option value="spectrum-light">Terminal · spectrum light</option><option value="spectrum-dark">Terminal · spectrum dark</option><option value="standard-light">Terminal · standard light</option><option value="standard-dark">Terminal · standard dark</option></select>
+      <button id="convert-claude" title="Continue editing this design as a Claude Code theme">Edit as Claude</button>
+      <button id="install" class="primary" title="Save this theme into the Codex /theme picker">Save to Codex themes</button>
+      <input id="file-input" type="file" accept=".tmTheme,.tmtheme,application/xml,text/xml" hidden>
+    </div>
+    <span id="scope-hint" class="toolbar-hint">Click any coloured word or diff line</span>
+    <span id="status" class="toolbar-status" role="status"></span>
+  </header>
+
+  <main class="workspace">
+    <section class="pane preview-pane">
+      <div id="preview" class="preview">
+        <section id="active-colour" class="colour-popover" hidden aria-label="Edit selected colour"><header><strong id="active-colour-name"></strong><button id="active-colour-close" aria-label="Close colour editor">×</button></header><div class="spectrum" aria-label="Quick colours"></div><label>COLOUR <input id="active-colour-picker" type="color" aria-label="Selected colour"></label><label>HEX <input id="active-colour-hex" maxlength="7" spellcheck="false" aria-label="Selected hex colour"></label></section>
+        <div class="preview-view active" data-view="preview">
+          <div class="codex-shell" data-terminal-role="background">
+            <div class="codex-transcript">
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Explored</strong></div>
+              <div class="activity-detail" data-terminal-role="foreground"><span class="tree">└</span> Read README.md, app.js, ui.css</div>
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Edited 2 files</strong> <span data-preset-target="4" data-scope="constant.numeric">(+24 −15)</span></div>
+              <div class="chat-diff" data-terminal-role="foreground">
+                <div class="code-line diff-header" data-preset-target="20" data-line-scope="meta.diff.header"><span class="line-number">··</span><code><span data-preset-target="21" data-scope="markup.heading">app.js</span></code></div>
+                <div class="code-line diff-deleted" data-preset-target="18" data-line-scope="markup.deleted.diff"><span class="line-number">406</span><span class="diff-marker minus" data-terminal-role="ansi-1">−</span><code><span data-preset-target="6" data-scope="storage.type">const</span> <span data-preset-target="11" data-scope="variable.other.readwrite">oldValue</span> <span data-preset-target="13" data-scope="keyword.operator.assignment">=</span> load()</code></div>
+                <div class="code-line diff-inserted" data-preset-target="17" data-line-scope="markup.inserted.diff"><span class="line-number">406</span><span class="diff-marker plus" data-terminal-role="ansi-2">+</span><code><span data-preset-target="5" data-scope="keyword.control">const</span> <span data-preset-target="12" data-scope="variable.other.property">validatedValue</span> = <span data-preset-target="7" data-scope="entity.name.function">validate</span><span data-preset-target="14" data-scope="punctuation.section.arguments">()</span></code></div>
+                <div class="code-line diff-deleted" data-line-scope="markup.deleted.diff"><span class="line-number">407</span><span class="diff-marker minus" data-terminal-role="ansi-1">−</span><code><span data-preset-target="0" data-scope="comment.line.double-slash">// Write before validation</span></code></div>
+                <div class="code-line diff-inserted" data-line-scope="markup.inserted.diff"><span class="line-number">407</span><span class="diff-marker plus" data-terminal-role="ansi-2">+</span><code><span data-preset-target="8" data-scope="entity.name.function.preprocessor">#if DEBUG</span> <span data-preset-target="1" data-scope="string.quoted.double">"Saved <span data-preset-target="3" data-scope="meta.interpolation">\(name)</span><span data-preset-target="2" data-scope="constant.character.escape">\n</span>"</span></code></div>
+                <div class="code-line diff-changed" data-preset-target="19" data-line-scope="markup.changed.diff"><span class="line-number">408</span><span class="diff-marker neutral">~</span><code><span data-preset-target="15" data-scope="entity.name.tag">result</span> <span data-preset-target="16" data-scope="entity.other.attribute-name">state</span>=<span data-scope="string.quoted.double">"ready"</span></code></div>
+              </div>
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Ran tests</strong></div>
+              <div class="activity-detail" data-terminal-role="foreground"><span class="tree">└</span> 11 checks passed</div>
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Explored</strong></div>
+              <div class="activity-detail" data-terminal-role="foreground"><span class="tree">└</span> Search renderPreview|positionColourPopover in app.js</div>
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Edited ui.css</strong> <span data-scope="constant.numeric">(+18 −6)</span></div>
+              <div class="chat-diff" data-terminal-role="foreground">
+                <div class="code-line diff-header" data-line-scope="meta.diff.header"><span class="line-number">··</span><code>@@ .terminal-preview</code></div>
+                <div class="code-line diff-deleted" data-line-scope="markup.deleted.diff"><span class="line-number">88</span><span class="diff-marker minus" data-terminal-role="ansi-1">−</span><code>padding: 32px;</code></div>
+                <div class="code-line diff-inserted" data-line-scope="markup.inserted.diff"><span class="line-number">88</span><span class="diff-marker plus" data-terminal-role="ansi-2">+</span><code>padding: 8px 5px;</code></div>
+                <div class="code-line diff-deleted" data-line-scope="markup.deleted.diff"><span class="line-number">89</span><span class="diff-marker minus" data-terminal-role="ansi-1">−</span><code>font-size: 14px;</code></div>
+                <div class="code-line diff-inserted" data-line-scope="markup.inserted.diff"><span class="line-number">89</span><span class="diff-marker plus" data-terminal-role="ansi-2">+</span><code>font-size: 10px;</code></div>
+                <div class="code-line diff-inserted" data-line-scope="markup.inserted.diff"><span class="line-number">90</span><span class="diff-marker plus" data-terminal-role="ansi-2">+</span><code>line-height: 1.32;</code></div>
+              </div>
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Context compacted</strong></div>
+              <div class="activity-detail" data-terminal-role="foreground"><span class="tree">└</span> Session instructions restored</div>
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Ran git status --short</strong></div>
+              <div class="activity-detail" data-terminal-role="foreground"><span class="tree">└</span> M app.js &nbsp; M ui.css &nbsp; M test_app.js</div>
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Explored</strong></div>
+              <div class="activity-detail" data-terminal-role="foreground"><span class="tree">└</span> Read parser.swift, renderer.swift, tests.swift</div>
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Edited parser.swift</strong> <span data-scope="constant.numeric">(+13 −8)</span></div>
+              <div class="chat-diff" data-terminal-role="foreground">
+                <div class="code-line diff-header" data-line-scope="meta.diff.header"><span class="line-number">··</span><code>@@ Parser.parse</code></div>
+                <div class="code-line diff-deleted" data-line-scope="markup.deleted.diff"><span class="line-number">52</span><span class="diff-marker minus" data-terminal-role="ansi-1">−</span><code>guard tokens.count &gt; 0 else { return nil }</code></div>
+                <div class="code-line diff-deleted" data-line-scope="markup.deleted.diff"><span class="line-number">53</span><span class="diff-marker minus" data-terminal-role="ansi-1">−</span><code>let node = parse(tokens[0])</code></div>
+                <div class="code-line diff-inserted" data-line-scope="markup.inserted.diff"><span class="line-number">52</span><span class="diff-marker plus" data-terminal-role="ansi-2">+</span><code>guard let first = tokens.first else { return nil }</code></div>
+                <div class="code-line diff-inserted" data-line-scope="markup.inserted.diff"><span class="line-number">53</span><span class="diff-marker plus" data-terminal-role="ansi-2">+</span><code>let node = try parse(first)</code></div>
+                <div class="code-line diff-inserted" data-line-scope="markup.inserted.diff"><span class="line-number">54</span><span class="diff-marker plus" data-terminal-role="ansi-2">+</span><code>validate(node)</code></div>
+              </div>
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Inspected browser preview</strong></div>
+              <div class="chat-code" data-terminal-role="foreground">
+                <div class="code-line"><span class="line-number">1</span><code><span data-preset-target="9" data-scope="entity.name.type">Parser</span>(<span data-preset-target="10" data-scope="variable.parameter">input</span>: <span data-scope="string.quoted.double">"source"</span>)</code></div>
+                <div class="code-line"><span class="line-number">2</span><code><span data-preset-target="23" data-scope="markup.raw.inline">parse()</span> · <span data-preset-target="22" data-scope="markup.underline.link">Parser documentation</span></code></div>
+                <div class="code-line"><span class="line-number">3</span><code><span data-preset-target="24" data-scope="markup.quote">› Preserve source order.</span></code></div>
+                <div class="code-line"><span class="line-number">4</span><code><span data-preset-target="25" data-scope="invalid.illegal">unexpected token</span></code></div>
+              </div>
+              <div class="chat-divider" data-terminal-role="foreground"></div>
+              <p class="agent-copy" data-global-target="foreground">All checks passed. No further changes are required.</p>
+              <div class="activity-line"><span class="tui-bullet" data-terminal-role="ansi-5">•</span><strong data-terminal-role="ansi-4">Working</strong> <span data-terminal-role="foreground">· inspecting final preview · esc to interrupt</span></div>
+            </div>
+            <div class="codex-composer"><span class="prompt-chevron" data-terminal-role="foreground">›</span><span class="prompt-placeholder" data-terminal-role="foreground">Use /skills to list available skills</span><span class="terminal-cursor" data-terminal-role="ansi-2">_</span></div>
+            <div class="codex-status">
+              <span data-terminal-role="foreground" data-status-part="workspace">project</span><i data-terminal-role="foreground">·</i>
+              <span data-terminal-role="foreground" data-status-part="plan">weekly 35% left</span><i data-terminal-role="foreground">·</i>
+              <span data-terminal-role="foreground" data-status-part="tasks">Tasks 0/8</span><i data-terminal-role="foreground">·</i>
+              <span data-terminal-role="foreground" data-status-part="mode">local</span><i data-terminal-role="foreground">·</i>
+              <span data-terminal-role="foreground" data-status-part="state">Waiting</span><i data-terminal-role="foreground">·</i>
+              <span data-terminal-role="foreground" data-status-part="model">gpt-5.6-sol high</span><i data-terminal-role="foreground">·</i>
+              <span data-terminal-role="foreground" data-status-part="path">~/Desktop/project</span><i data-terminal-role="foreground">·</i>
+              <span data-terminal-role="foreground" data-status-part="context">Context 16% used</span><i data-terminal-role="foreground">·</i>
+              <span data-terminal-role="foreground" data-status-part="branch">Main [default]</span>
+              <span class="status-goal" data-terminal-role="ansi-5" data-status-part="goal">Pursuing goal</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-view" data-view="map">
+          <div class="codex-shell theme-map-shell" data-terminal-role="background">
+            <div class="theme-map-intro" data-terminal-role="foreground">
+              <div><strong>All colours</strong><span>Change a square or type a hex colour. The preview updates immediately.</span></div>
+            </div>
+            <div class="theme-map-head" data-terminal-role="foreground"><span>What changes</span><span>Where you see it</span><span>Example</span><span>Colour</span></div>
+            <div id="theme-map" class="theme-map"></div>
+            <div class="add-colour-row"><strong>Add a code colour</strong><span>Choose the kind of code you want to style.</span><select id="add-colour-category" aria-label="Code colour category"></select><button id="add-rule">Add or find</button></div>
+            <details class="advanced-browser">
+              <summary>Imported details <span id="rule-count" class="badge"></span></summary>
+              <div class="rule-tools">
+                <input id="rule-search" type="search" placeholder="Find an imported detail" aria-label="Find imported detail">
+              </div>
+              <div id="rule-list" class="rule-list"></div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,2 @@
+description = "Show the Theme Studio controls and save locations"
+prompt = "Use $codex-theme-studio:theme-studio-help to show the compact Theme Studio guide. Do not open the editor unless the user asks."

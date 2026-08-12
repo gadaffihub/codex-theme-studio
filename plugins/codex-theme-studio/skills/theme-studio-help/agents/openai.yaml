@@ -1,0 +1,4 @@
+interface:
+  display_name: "Theme Studio Help"
+  short_description: "Learn the theme workflow and commands"
+  default_prompt: "Use $theme-studio-help to show the Theme Studio quick reference."

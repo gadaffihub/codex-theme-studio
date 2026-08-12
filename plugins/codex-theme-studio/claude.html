@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Theme Studio — Claude Code</title>
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="claude.css">
+  <script src="theme-convert.js" defer></script>
+  <script src="claude.js" defer></script>
+</head>
+<body>
+  <header class="toolbar">
+    <a class="brand" href="index.html" aria-label="Theme Studio home">THEME STUDIO</a>
+    <nav class="product-switch" aria-label="Theme editor">
+      <a class="mode-link" href="index.html">Codex</a>
+      <span class="mode-link active">Claude</span>
+    </nav>
+    <label class="theme-source">STARTING POINT <select id="claude-base">
+      <option value="dark">Dark</option><option value="light">Light</option>
+      <option value="dark-daltonized">Dark · Daltonized</option><option value="light-daltonized">Light · Daltonized</option>
+      <option value="dark-ansi">Dark · ANSI</option><option value="light-ansi">Light · ANSI</option>
+    </select></label>
+    <label class="theme-title">THEME <input id="claude-name" maxlength="100" autocomplete="off" aria-label="Theme name"></label>
+    <div class="tabs" role="tablist"><button class="tab active" data-claude-view="preview" role="tab" aria-selected="true">Preview</button><button class="tab" data-claude-view="list" role="tab" aria-selected="false">All colours</button></div>
+    <div class="toolbar-actions">
+      <button id="claude-new-theme">New</button>
+      <button id="claude-open">Open</button>
+      <button id="claude-randomize-selected" disabled title="Randomize only the colour you clicked">Randomize selected</button>
+      <button id="claude-randomize" title="Replace and enable every colour">Randomize all</button>
+      <button id="convert-codex" title="Continue editing this design as a Codex theme">Edit as Codex</button>
+      <button id="claude-install" class="primary" title="Save this theme into the Claude Code /theme picker">Save to Claude themes</button>
+      <input id="claude-file-input" type="file" accept=".json,application/json" hidden>
+    </div>
+    <span id="claude-hint" class="toolbar-hint">Click any coloured terminal element</span>
+    <span id="override-count" class="toolbar-count">0 colours</span>
+    <span id="status" class="toolbar-status" role="status"></span>
+  </header>
+
+  <main class="workspace claude-workspace">
+    <section class="pane preview-pane claude-preview-panel">
+      <div class="preview claude-preview-wrap">
+        <section id="claude-active-colour" class="colour-popover" hidden aria-label="Edit selected colour"><header><strong id="claude-active-name"></strong><button id="claude-active-close" aria-label="Close colour editor">×</button></header><div class="spectrum" aria-label="Quick colours"></div><label>COLOUR <input id="claude-active-picker" type="color" aria-label="Selected colour"></label><label>HEX <input id="claude-active-hex" maxlength="7" spellcheck="false" aria-label="Selected hex colour"></label></section>
+        <div class="claude-view active" data-claude-page="preview">
+          <div id="claude-preview" class="claude-preview">
+            <div class="claude-transcript">
+              <div class="claude-masthead"><span class="claude-robot" data-token="claude" aria-label="Claude robot"><i></i><b>••</b></span><div><strong data-token="claude">Claude Code</strong> <span data-token="inactive">v2.1.228</span><small data-token="inactive">Opus 4.8 with high effort · Claude Max</small><small data-token="inactive">$PROJECT</small></div></div>
+              <div class="claude-model" data-token="inactive">│ Using Opus 4.8 (from .claude/settings.json) · /model</div>
+              <div class="claude-command" data-token="inverseText">/statusline</div>
+              <div class="claude-line"><span data-token="text">I’ll configure your status line from your shell configuration.</span></div>
+              <div class="claude-line"><span data-token="success">●</span> <strong data-token="briefLabelClaude">statusline-setup</strong><span data-token="text">(Configure statusline from shell PS1)</span></div>
+              <div class="claude-tree" data-token="inactive">  └ Background agent (↓ to manage · ctrl+o to expand)</div>
+              <div class="claude-line"><span data-token="claudeShimmer">✦</span> <span data-token="text">Launched the statusline-setup agent to read your shell config and set up the status line.</span></div>
+              <div class="claude-line"><span data-token="inactiveShimmer">✳ Waiting for 1 background agent to finish</span></div>
+              <div class="claude-line"><span data-token="success">●</span> <strong data-token="text">Agent “Configure statusline from shell PS1” finished</strong> <span data-token="inactive">· 14s</span></div>
+              <div class="claude-line"><span data-token="subtle">●</span> <span data-token="text">No PS1 found in your shell config — <span data-token="remember">.zshrc</span> only has PATH exports and aliases.</span></div>
+              <div class="claude-line"><span data-token="subtle">●</span> <strong data-token="text">User declined to answer questions</strong></div>
+              <div class="claude-tree" data-token="inactive">  └ No shell prompt to convert. Set up a default status line instead?</div>
+              <div class="claude-user" data-token="userMessageBackground"><span data-token="briefLabelYou">You:</span> Keep the terminal preview faithful to the real interface.</div>
+              <div class="claude-command" data-token="inverseText">Run the project checks and split the work between 2 agents.</div>
+              <div class="claude-line"><span data-token="text">I’ll load the task schema and launch the 2 agents in parallel.</span></div>
+              <div class="claude-line"><span data-token="success">●</span> <strong data-token="text">2 background agents launched</strong> <span data-token="inactive">(↓ to manage)</span></div>
+              <div class="claude-tree"><span data-token="blue_FOR_SUBAGENTS_ONLY">  ├ Test agent</span><br><span data-token="green_FOR_SUBAGENTS_ONLY">  └ Documentation agent</span></div>
+              <div class="claude-command" data-token="inverseText">Apply the validated file changes</div>
+              <div class="claude-line"><span data-token="text">Now filing the 5 project tasks.</span></div>
+              <div class="claude-line"><span data-token="inactive">Made 1 file edit </span><span data-token="diffAdded">+12</span></div>
+              <div class="claude-line"><span data-token="success">●</span> <strong data-token="text">Agent “Documentation” finished</strong> <span data-token="inactive">· 3s</span></div>
+              <div class="claude-line"><span data-token="success">●</span> <strong data-token="text">Agent “Tests” finished</strong> <span data-token="inactive">· 5s</span></div>
+              <div class="claude-line"><span data-token="text">Now applying the validated edits.</span></div>
+              <div class="claude-line"><span data-token="inactive">Made 2 file edits </span><span data-token="diffAdded">+13</span> <span data-token="diffRemoved">−8</span></div>
+              <div class="claude-line"><span data-token="subtle">●</span> <span data-token="text">Done — all checks and edits completed.</span></div>
+              <div class="claude-tree"><span data-token="blue_FOR_SUBAGENTS_ONLY">  ├ 5 project tasks filed</span><br><span data-token="green_FOR_SUBAGENTS_ONLY">  └ 2 agents completed</span></div>
+              <div class="claude-tasks" data-token="subtle"><strong>5 tasks (0 done, 5 open)</strong><span>□ Add test fixtures</span><span>□ Wire up config loader</span><span>□ Add validation guard</span><span>□ Refactor helper module</span><span>□ Update docs</span></div>
+              <div class="claude-state-grid" aria-label="Additional configurable theme states">
+                <div class="claude-meta-row"><span data-token="ide">IDE connected</span><span data-token="fastMode">Fast mode</span><span data-token="fastModeShimmer">processing…</span><span class="selection-demo" data-token="selectionBg">selected text</span></div>
+                <div class="claude-user hover-state" data-token="userMessageBackgroundHover"><span data-token="briefLabelYou">You:</span> Hovered message</div>
+                <div class="claude-tool memory" data-token="memoryBackgroundColor"><span data-token="remember">Remembered:</span> use the saved project palette.</div>
+                <div class="claude-permission" data-token="permission">Allow Claude to edit this file? <span data-token="permissionShimmer">Yes / No</span></div>
+                <div class="subagents"><span>Agents:</span><i data-token="red_FOR_SUBAGENTS_ONLY">red</i><i data-token="blue_FOR_SUBAGENTS_ONLY">blue</i><i data-token="green_FOR_SUBAGENTS_ONLY">green</i><i data-token="yellow_FOR_SUBAGENTS_ONLY">yellow</i><i data-token="purple_FOR_SUBAGENTS_ONLY">purple</i><i data-token="orange_FOR_SUBAGENTS_ONLY">orange</i><i data-token="pink_FOR_SUBAGENTS_ONLY">pink</i><i data-token="cyan_FOR_SUBAGENTS_ONLY">cyan</i></div>
+                <div class="rainbow" aria-label="Ultrathink indicator"><span data-token="rainbow_red">R</span><span data-token="rainbow_red_shimmer">·</span><span data-token="rainbow_orange">A</span><span data-token="rainbow_orange_shimmer">·</span><span data-token="rainbow_yellow">I</span><span data-token="rainbow_yellow_shimmer">·</span><span data-token="rainbow_green">N</span><span data-token="rainbow_green_shimmer">·</span><span data-token="rainbow_blue">B</span><span data-token="rainbow_blue_shimmer">·</span><span data-token="rainbow_indigo">O</span><span data-token="rainbow_indigo_shimmer">·</span><span data-token="rainbow_violet">W</span><span data-token="rainbow_violet_shimmer">·</span></div>
+                <div class="claude-tool shell" data-token="bashMessageBackgroundColor"><span data-token="bashBorder">›</span> shell state <span data-token="warning">! warning</span><span data-token="warningShimmer"> ⋯</span><span data-token="error"> × error</span><span data-token="merged"> ◆ merged</span></div>
+                <div class="claude-plan" data-token="planMode">Plan mode <span data-token="autoAccept">auto-accept on</span></div>
+                <div class="claude-diff dim removed" data-token="diffRemovedDimmed">  const oldTheme = load()</div><div class="claude-diff removed" data-token="diffRemoved">− const <mark data-token="diffRemovedWord">oldTheme</mark> = true</div><div class="claude-diff dim added" data-token="diffAddedDimmed">  const nextTheme = load()</div><div class="claude-diff added" data-token="diffAdded">+ const <mark data-token="diffAddedWord">customTheme</mark> = true</div>
+              </div>
+            </div>
+            <div class="claude-prompt" data-token="promptBorder"><span data-token="promptBorderShimmer">›</span><span class="terminal-cursor" data-token="suggestion">_</span><span class="prompt-model" data-token="inactive">ultracode —</span></div>
+            <div class="claude-footer"><span data-token="inactive">Opus 4.8 · ctx 4%</span><span data-token="permission">›› bypass permissions on</span><span data-token="fastMode">● main</span><span class="claude-agent-roster"><i data-token="green_FOR_SUBAGENTS_ONLY">○ general-purpose&nbsp; Test agent</i><i data-token="cyan_FOR_SUBAGENTS_ONLY">○ general-purpose&nbsp; Documentation agent</i></span><span class="usage"><i data-token="rate_limit_fill"></i><b data-token="rate_limit_empty"></b></span></div>
+          </div>
+        </div>
+        <div class="claude-view" data-claude-page="list">
+          <div class="claude-list-intro"><strong>All colours</strong><span>Turn a colour on, then change its square or hex value. The preview updates immediately.</span></div>
+          <div class="token-list-head" aria-hidden="true"><span>On</span><span>What changes</span><span>Where you see it</span><span>Example</span><span>Colour</span></div>
+          <div id="claude-token-groups"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

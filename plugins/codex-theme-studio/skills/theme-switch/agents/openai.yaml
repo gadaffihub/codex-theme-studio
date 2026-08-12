@@ -1,0 +1,4 @@
+interface:
+  display_name: "Switch Theme"
+  short_description: "Select an installed Codex or Claude theme"
+  default_prompt: "Use $theme-switch to switch my installed terminal AI theme."

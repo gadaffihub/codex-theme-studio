@@ -1,0 +1,35 @@
+{
+  "name": "codex-theme-studio",
+  "version": "0.2.0+codex.20260812172157",
+  "description": "Design, convert, preview, and save Codex CLI and Claude Code themes inside the terminal.",
+  "author": {
+    "name": "Codex Theme Studio contributors"
+  },
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "theme",
+    "textmate",
+    "syntax-highlighting",
+    "claude-code"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Codex Theme Studio",
+    "shortDescription": "Design Codex and Claude Code themes.",
+    "longDescription": "Launches a terminal-native theme studio with authentic clickable Codex and Claude previews, direct colour lists, keyboard and mouse editing, two-way conversion, and validated native-store saving. It opens in a separate window by default, with tab and restoring-overlay options.",
+    "developerName": "Codex Theme Studio contributors",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "brandColor": "#00FFFF",
+    "defaultPrompt": [
+      "Open Codex Theme Studio.",
+      "Help me design a Codex theme.",
+      "Help me design a Claude Code theme."
+    ]
+  }
+}

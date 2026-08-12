@@ -1,0 +1,33 @@
+name: Test
+
+permissions:
+  contents: read
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: plugins/codex-theme-studio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: node --check app.js
+      - run: node --check claude.js
+      - run: node --check theme-convert.js
+      - run: node test_app.js
+      - run: node test_convert.js
+      - run: python3 -m py_compile server.py theme_core.py theme_studio_tui.py theme_studio_mcp.py
+      - run: python3 -m unittest -v test_server.py test_tui.py test_mcp.py
+      - run: zsh -n scripts/theme-studio.sh scripts/theme-studio-mcp start.command
+      - run: printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | ./scripts/theme-studio-mcp | grep -q 'create_theme'
+      - run: python3 -c 'import json; p=json.load(open(".codex-plugin/plugin.json")); assert p["name"] == "codex-theme-studio" and p["version"]'

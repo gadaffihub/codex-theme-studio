@@ -1,0 +1,4 @@
+interface:
+  display_name: "Theme Studio"
+  short_description: "Create and edit Codex or Claude themes"
+  default_prompt: "Use $theme-studio to open the terminal-native theme editor."
